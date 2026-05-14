@@ -28,11 +28,6 @@ public class FranquiciaPersistenceAdapter implements FranquiciaRepositoryPort {
     }
 
     @Override
-    public Mono<Franquicia> findFranquiciaById(UUID id) {
-        return franquiciaRepository.findById(id);
-    }
-
-    @Override
     public Mono<Franquicia> updateNombreFranquicia(UUID id, String nuevoNombre) {
         return franquiciaRepository.findById(id)
                 .flatMap(f -> {
@@ -53,11 +48,6 @@ public class FranquiciaPersistenceAdapter implements FranquiciaRepositoryPort {
                     s.setNombre(nuevoNombre);
                     return sucursalRepository.save(s);
                 });
-    }
-
-    @Override
-    public Flux<Sucursal> findSucursalesByFranquiciaId(UUID franquiciaId) {
-        return sucursalRepository.findByFranquiciaId(franquiciaId);
     }
 
     @Override

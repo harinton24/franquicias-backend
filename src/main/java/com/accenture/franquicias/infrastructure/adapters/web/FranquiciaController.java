@@ -1,9 +1,13 @@
 package com.accenture.franquicias.infrastructure.adapters.web;
 
+import com.accenture.franquicias.application.mappers.FranquiciaMapper;
+import com.accenture.franquicias.application.mappers.ProductoMapper;
+import com.accenture.franquicias.application.mappers.SucursalMapper;
 import com.accenture.franquicias.application.usecases.FranquiciaUseCase;
-import com.accenture.franquicias.domain.models.Franquicia;
-import com.accenture.franquicias.domain.models.Producto;
-import com.accenture.franquicias.domain.models.Sucursal;
+import com.accenture.franquicias.infrastructure.dto.FranquiciaDTO;
+import com.accenture.franquicias.infrastructure.dto.ProductoDTO;
+import com.accenture.franquicias.infrastructure.dto.ProductoMasStockDTO;
+import com.accenture.franquicias.infrastructure.dto.SucursalDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,25 +23,35 @@ import java.util.UUID;
 public class FranquiciaController {
 
     private final FranquiciaUseCase useCase;
+    private final FranquiciaMapper franquiciaMapper;
+    private final SucursalMapper sucursalMapper;
+    private final ProductoMapper productoMapper;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Franquicia> crearFranquicia(@Valid @RequestBody Franquicia franquicia) {
-        return useCase.crearFranquicia(franquicia);
+    public Mono<FranquiciaDTO> crearFranquicia(@Valid @RequestBody FranquiciaDTO dto) {
+        return useCase.crearFranquicia(franquiciaMapper.toEntity(dto))
+                .map(franquiciaMapper::toDTO);
     }
 
     @PostMapping("/{franquiciaId}/sucursales")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Sucursal> agregarSucursal(@PathVariable UUID franquiciaId,@Valid @RequestBody Sucursal sucursal) {
-        sucursal.setFranquiciaId(franquiciaId);
-        return useCase.agregarSucursal(sucursal);
+    public Mono<SucursalDTO> agregarSucursal(
+            @PathVariable UUID franquiciaId,
+            @Valid @RequestBody SucursalDTO dto) {
+        dto.setFranquiciaId(franquiciaId);
+        return useCase.agregarSucursal(sucursalMapper.toEntity(dto))
+                .map(sucursalMapper::toDTO);
     }
 
     @PostMapping("/sucursales/{sucursalId}/productos")
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<Producto> agregarProducto(@PathVariable UUID sucursalId, @Valid @RequestBody Producto producto) {
-        producto.setSucursalId(sucursalId);
-        return useCase.agregarProducto(producto);
+    public Mono<ProductoDTO> agregarProducto(
+            @PathVariable UUID sucursalId,
+            @Valid @RequestBody ProductoDTO dto) {
+        dto.setSucursalId(sucursalId);
+        return useCase.agregarProducto(productoMapper.toEntity(dto))
+                .map(productoMapper::toDTO);
     }
 
     @DeleteMapping("/productos/{productoId}")
@@ -47,17 +61,24 @@ public class FranquiciaController {
     }
 
     @PatchMapping("/productos/{productoId}/stock")
-    public Mono<Producto> modificarStock(@PathVariable UUID productoId, @RequestBody Producto producto) {
-        return useCase.modificarStock(productoId, producto.getStock());
+    public Mono<ProductoDTO> modificarStock(
+            @PathVariable UUID productoId,
+            @Valid @RequestBody ProductoDTO dto) {
+        return useCase.modificarStock(productoId, dto.getStock())
+                .map(productoMapper::toDTO);
     }
 
     @GetMapping("/{franquiciaId}/productos-max-stock")
-    public Flux<Producto> obtenerMaxStockPorSucursal(@PathVariable UUID franquiciaId) {
-        return useCase.obtenerProductosMasStock(franquiciaId);
+    public Flux<ProductoMasStockDTO> obtenerMaxStockPorSucursal(@PathVariable UUID franquiciaId) {
+        return useCase.obtenerProductosMasStock(franquiciaId)
+                .map(productoMapper::toProductoMasStockDTO);
     }
 
     @PatchMapping("/{id}/nombre")
-    public Mono<Franquicia> actualizarNombreFranquicia(@PathVariable UUID id, @RequestBody Franquicia f) {
-        return useCase.renombrarFranquicia(id, f.getNombre());
+    public Mono<FranquiciaDTO> actualizarNombreFranquicia(
+            @PathVariable UUID id,
+            @Valid @RequestBody FranquiciaDTO dto) {
+        return useCase.renombrarFranquicia(id, dto.getNombre())
+                .map(franquiciaMapper::toDTO);
     }
 }
