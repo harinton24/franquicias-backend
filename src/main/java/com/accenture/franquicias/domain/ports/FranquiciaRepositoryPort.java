@@ -12,13 +12,11 @@ public interface FranquiciaRepositoryPort {
 
     // Franquicia
     Mono<Franquicia> saveFranquicia(Franquicia franquicia);
-    Mono<Franquicia> findFranquiciaById(UUID id);
     Mono<Franquicia> updateNombreFranquicia(UUID id, String nuevoNombre);
 
     // Sucursal
     Mono<Sucursal> saveSucursal(Sucursal sucursal);
     Mono<Sucursal> updateNombreSucursal(UUID id, String nuevoNombre);
-    Flux<Sucursal> findSucursalesByFranquiciaId(UUID franquiciaId);
 
     // Producto
     Mono<Producto> saveProducto(Producto producto);
