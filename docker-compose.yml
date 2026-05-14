@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: mssql_accenture
+    ports:
+      - "1433:1433"
+    environment:
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${DB_PASSWORD}
+    networks:
+      - franquicias-net
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+  app-backend:
+    build: .
+    container_name: franquicias-app
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      sqlserver:
+        condition: service_started
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_URL=${DB_URL}
+      - FLYWAY_URL=${FLYWAY_URL}
+    networks:
+      - franquicias-net
+
+networks:
+  franquicias-net:
+    driver: bridge
+
+volumes:
+  sqlserver-data:
