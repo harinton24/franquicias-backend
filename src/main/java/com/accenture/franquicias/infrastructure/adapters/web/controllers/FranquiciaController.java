@@ -4,10 +4,7 @@ import com.accenture.franquicias.application.mappers.FranquiciaMapper;
 import com.accenture.franquicias.application.mappers.ProductoMapper;
 import com.accenture.franquicias.application.mappers.SucursalMapper;
 import com.accenture.franquicias.application.usecases.FranquiciaUseCase;
-import com.accenture.franquicias.infrastructure.adapters.web.dto.FranquiciaDTO;
-import com.accenture.franquicias.infrastructure.adapters.web.dto.ProductoDTO;
-import com.accenture.franquicias.infrastructure.adapters.web.dto.ProductoMasStockDTO;
-import com.accenture.franquicias.infrastructure.adapters.web.dto.SucursalDTO;
+import com.accenture.franquicias.infrastructure.adapters.web.dto.*; // Importamos todos los DTOs
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,17 +26,15 @@ public class FranquiciaController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Mono<FranquiciaDTO> crearFranquicia(@Valid @RequestBody FranquiciaDTO dto) {
+    public Mono<FranquiciaDTO> crearFranquicia(@Valid @RequestBody FranquiciaCreateDTO dto) {
         return useCase.crearFranquicia(franquiciaMapper.toEntity(dto))
                 .map(franquiciaMapper::toDTO);
     }
 
-    @PostMapping("/{franquiciaId}/sucursales")
+    @PostMapping("/sucursales")
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<SucursalDTO> agregarSucursal(
-            @PathVariable UUID franquiciaId,
-            @Valid @RequestBody SucursalDTO dto) {
-        dto.setFranquiciaId(franquiciaId);
+            @Valid @RequestBody SucursalCreateDTO dto) {
         return useCase.agregarSucursal(sucursalMapper.toEntity(dto))
                 .map(sucursalMapper::toDTO);
     }
@@ -48,9 +43,11 @@ public class FranquiciaController {
     @ResponseStatus(HttpStatus.CREATED)
     public Mono<ProductoDTO> agregarProducto(
             @PathVariable UUID sucursalId,
-            @Valid @RequestBody ProductoDTO dto) {
-        dto.setSucursalId(sucursalId);
-        return useCase.agregarProducto(productoMapper.toEntity(dto))
+            @Valid @RequestBody ProductoCreateDTO dto) {
+        var producto = productoMapper.toEntity(dto);
+        producto.setSucursalId(sucursalId);
+
+        return useCase.agregarProducto(producto)
                 .map(productoMapper::toDTO);
     }
 
@@ -77,7 +74,7 @@ public class FranquiciaController {
     @PatchMapping("/{id}/nombre")
     public Mono<FranquiciaDTO> actualizarNombreFranquicia(
             @PathVariable UUID id,
-            @Valid @RequestBody FranquiciaDTO dto) {
+            @Valid @RequestBody FranquiciaCreateDTO dto) {
         return useCase.renombrarFranquicia(id, dto.getNombre())
                 .map(franquiciaMapper::toDTO);
     }
