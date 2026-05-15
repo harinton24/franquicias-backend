@@ -1,13 +1,13 @@
-package com.accenture.franquicias.infrastructure.adapters.web;
+package com.accenture.franquicias.infrastructure.adapters.web.controllers;
 
 import com.accenture.franquicias.application.mappers.FranquiciaMapper;
 import com.accenture.franquicias.application.mappers.ProductoMapper;
 import com.accenture.franquicias.application.mappers.SucursalMapper;
 import com.accenture.franquicias.application.usecases.FranquiciaUseCase;
-import com.accenture.franquicias.infrastructure.dto.FranquiciaDTO;
-import com.accenture.franquicias.infrastructure.dto.ProductoDTO;
-import com.accenture.franquicias.infrastructure.dto.ProductoMasStockDTO;
-import com.accenture.franquicias.infrastructure.dto.SucursalDTO;
+import com.accenture.franquicias.infrastructure.adapters.web.dto.FranquiciaDTO;
+import com.accenture.franquicias.infrastructure.adapters.web.dto.ProductoDTO;
+import com.accenture.franquicias.infrastructure.adapters.web.dto.ProductoMasStockDTO;
+import com.accenture.franquicias.infrastructure.adapters.web.dto.SucursalDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

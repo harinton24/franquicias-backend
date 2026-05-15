@@ -81,21 +81,23 @@ src/
 │   │   │   └── usecases/
 │   │   ├── domain/
 │   │   │   ├── models/
-│   │   │   └── ports/
+│   │   │   ├── ports/
 │   │   └── infrastructure/
 │   │       ├── adapters/
 │   │       │   ├── persistence/
+│   │       │   │   ├── adapters/
+│   │       │   │   └── repositories/
 │   │       │   └── web/
-│   │       ├── config/
-│   │       ├── dto/
-│   │       └── repositories/
+│   │       │       ├── controllers/
+│   │       │       ├── dto/
+│   │       │       └── exceptions/
+│   │       └── config/
 │   └── resources/
+│       └── db/migration/
 └── test/
     └── java/com/accenture/franquicias/
-        ├── application/
-        │   ├── mappers/
-        │   └── usecases/
-        └── FranquiciasBackendApplicationTests.java
+        └──  application/
+            └── usecases/
 ```
 
 ---

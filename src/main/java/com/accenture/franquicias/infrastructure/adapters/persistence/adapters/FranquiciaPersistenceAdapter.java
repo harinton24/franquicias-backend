@@ -1,12 +1,12 @@
-package com.accenture.franquicias.infrastructure.adapters.persistence;
+package com.accenture.franquicias.infrastructure.adapters.persistence.adapters;
 
 import com.accenture.franquicias.domain.models.Franquicia;
 import com.accenture.franquicias.domain.models.Producto;
 import com.accenture.franquicias.domain.models.Sucursal;
 import com.accenture.franquicias.domain.ports.FranquiciaRepositoryPort;
-import com.accenture.franquicias.infrastructure.repositories.FranquiciaRepository;
-import com.accenture.franquicias.infrastructure.repositories.ProductoRepository;
-import com.accenture.franquicias.infrastructure.repositories.SucursalRepository;
+import com.accenture.franquicias.infrastructure.adapters.persistence.repositories.FranquiciaRepository;
+import com.accenture.franquicias.infrastructure.adapters.persistence.repositories.ProductoRepository;
+import com.accenture.franquicias.infrastructure.adapters.persistence.repositories.SucursalRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import reactor.core.publisher.Flux;
