@@ -1,4 +1,4 @@
-package com.accenture.franquicias.infrastructure.repositories;
+package com.accenture.franquicias.infrastructure.adapters.persistence.repositories;
 
 import com.accenture.franquicias.domain.models.Producto;
 import org.springframework.data.r2dbc.repository.Query;
@@ -9,8 +9,6 @@ import java.util.UUID;
 
 @Repository
 public interface ProductoRepository extends ReactiveCrudRepository<Producto, UUID> {
-    Flux<Producto> findBySucursalId(UUID sucursalId);
-
     // Consulta personalizada
     @Query("SELECT p.* FROM productos p " +
             "JOIN sucursales s ON p.sucursal_id = s.id " +

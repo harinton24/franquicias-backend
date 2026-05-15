@@ -18,7 +18,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table("productos")
-public class Producto implements Persistable<UUID> { // 2. Implementar Persistable
+public class Producto implements Persistable<UUID> {
 
     @Id
     private UUID id;

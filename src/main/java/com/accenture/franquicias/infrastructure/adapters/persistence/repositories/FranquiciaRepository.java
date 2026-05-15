@@ -1,4 +1,4 @@
-package com.accenture.franquicias.infrastructure.repositories;
+package com.accenture.franquicias.infrastructure.adapters.persistence.repositories;
 
 import com.accenture.franquicias.domain.models.Franquicia;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;

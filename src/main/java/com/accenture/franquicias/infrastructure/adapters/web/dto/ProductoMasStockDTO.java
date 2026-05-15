@@ -1,4 +1,4 @@
-package com.accenture.franquicias.infrastructure.dto;
+package com.accenture.franquicias.infrastructure.adapters.web.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
