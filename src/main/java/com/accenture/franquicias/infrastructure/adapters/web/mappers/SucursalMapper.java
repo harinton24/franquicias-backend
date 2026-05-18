@@ -1,4 +1,4 @@
-package com.accenture.franquicias.application.mappers;
+package com.accenture.franquicias.infrastructure.adapters.web.mappers;
 
 import com.accenture.franquicias.domain.models.Sucursal;
 import com.accenture.franquicias.infrastructure.adapters.web.dto.SucursalCreateDTO;
@@ -12,10 +12,8 @@ public interface SucursalMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "productos", ignore = true)
-    @Mapping(target = "new", ignore = true)
     @Mapping(target = "franquiciaId", source = "franquiciaId")
     Sucursal toEntity(SucursalCreateDTO dto);
 
-    @Mapping(target = "new", ignore = true)
     Sucursal toEntity(SucursalDTO dto);
 }

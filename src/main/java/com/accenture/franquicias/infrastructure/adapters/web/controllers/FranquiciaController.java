@@ -1,8 +1,8 @@
 package com.accenture.franquicias.infrastructure.adapters.web.controllers;
 
-import com.accenture.franquicias.application.mappers.FranquiciaMapper;
-import com.accenture.franquicias.application.mappers.ProductoMapper;
-import com.accenture.franquicias.application.mappers.SucursalMapper;
+import com.accenture.franquicias.infrastructure.adapters.web.mappers.FranquiciaMapper;
+import com.accenture.franquicias.infrastructure.adapters.web.mappers.ProductoMapper;
+import com.accenture.franquicias.infrastructure.adapters.web.mappers.SucursalMapper;
 import com.accenture.franquicias.application.usecases.FranquiciaUseCase;
 import com.accenture.franquicias.infrastructure.adapters.web.dto.*; // Importamos todos los DTOs
 import jakarta.validation.Valid;
