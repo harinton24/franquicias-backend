@@ -10,6 +10,7 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class FranquiciaUseCase {
@@ -18,19 +19,16 @@ public class FranquiciaUseCase {
 
     public Mono<Franquicia> crearFranquicia(Franquicia franquicia) {
         franquicia.setId(UUID.randomUUID());
-        franquicia.setNew(true);
         return repositoryPort.saveFranquicia(franquicia);
     }
 
     public Mono<Sucursal> agregarSucursal(Sucursal sucursal) {
         sucursal.setId(UUID.randomUUID());
-        sucursal.setNew(true);
         return repositoryPort.saveSucursal(sucursal);
     }
 
     public Mono<Producto> agregarProducto(Producto producto) {
         producto.setId(UUID.randomUUID());
-        producto.setNew(true);
         return repositoryPort.saveProducto(producto);
     }
 

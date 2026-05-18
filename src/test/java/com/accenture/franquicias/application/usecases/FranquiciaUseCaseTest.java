@@ -29,10 +29,11 @@ class FranquiciaUseCaseTest {
     private FranquiciaUseCase useCase;
 
     @Test
-    void crearFranquicia_DebeAsignarIdYSetearNew() {
+    void crearFranquicia_DebeAsignarIdYGuardar() {
         // Arrange
-        Franquicia franquicia = new Franquicia();
-        franquicia.setNombre("Franquicia Armenia");
+        Franquicia franquicia = Franquicia.builder()
+                .nombre("Franquicia Armenia")
+                .build();
 
         when(repositoryPort.saveFranquicia(any(Franquicia.class)))
                 .thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
@@ -40,8 +41,7 @@ class FranquiciaUseCaseTest {
         // Act & Assert
         StepVerifier.create(useCase.crearFranquicia(franquicia))
                 .assertNext(f -> {
-                    assertNotNull(f.getId());
-                    assertTrue(f.isNew());
+                    assertNotNull(f.getId()); // Verifica que el UseCase generó el UUID
                     assertEquals("Franquicia Armenia", f.getNombre());
                 })
                 .verifyComplete();
@@ -63,8 +63,9 @@ class FranquiciaUseCaseTest {
     @Test
     void agregarSucursal_DebeAsignarIdYGuardar() {
         // Arrange
-        Sucursal sucursal = new Sucursal();
-        sucursal.setNombre("Sucursal Centro");
+        Sucursal sucursal = Sucursal.builder()
+                .nombre("Sucursal Centro")
+                .build();
 
         when(repositoryPort.saveSucursal(any(Sucursal.class)))
                 .thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
@@ -73,20 +74,19 @@ class FranquiciaUseCaseTest {
         StepVerifier.create(useCase.agregarSucursal(sucursal))
                 .assertNext(s -> {
                     assertNotNull(s.getId());
-                    assertTrue(s.isNew());
                     assertEquals("Sucursal Centro", s.getNombre());
                 })
                 .verifyComplete();
     }
 
-
     @Test
     void obtenerProductosMasStock_DebeRetornarFlujoDePuerto() {
         // Arrange
         UUID franquiciaId = UUID.randomUUID();
-        Producto p1 = new Producto();
-        p1.setNombre("Producto Top 1");
-        p1.setStock(500);
+        Producto p1 = Producto.builder()
+                .nombre("Producto Top 1")
+                .stock(500)
+                .build();
 
         when(repositoryPort.findTopStockProductsByFranquicia(franquiciaId))
                 .thenReturn(Flux.just(p1));
@@ -100,9 +100,10 @@ class FranquiciaUseCaseTest {
     @Test
     void agregarProducto_DebeAsignarIdYGuardarCorrectamente() {
         // Arrange
-        Producto producto = new Producto();
-        producto.setNombre("Producto Test");
-        producto.setStock(10);
+        Producto producto = Producto.builder()
+                .nombre("Producto Test")
+                .stock(10)
+                .build();
 
         when(repositoryPort.saveProducto(any(Producto.class)))
                 .thenAnswer(invocation -> Mono.just(invocation.getArgument(0)));
@@ -111,7 +112,6 @@ class FranquiciaUseCaseTest {
         StepVerifier.create(useCase.agregarProducto(producto))
                 .assertNext(p -> {
                     assertNotNull(p.getId());
-                    assertTrue(p.isNew());
                     assertEquals("Producto Test", p.getNombre());
                 })
                 .verifyComplete();
@@ -133,9 +133,10 @@ class FranquiciaUseCaseTest {
         // Arrange
         UUID id = UUID.randomUUID();
         String nuevoNombre = "Nuevo Nombre";
-        Franquicia franquiciaActualizada = new Franquicia();
-        franquiciaActualizada.setId(id);
-        franquiciaActualizada.setNombre(nuevoNombre);
+        Franquicia franquiciaActualizada = Franquicia.builder()
+                .id(id)
+                .nombre(nuevoNombre)
+                .build();
 
         when(repositoryPort.updateNombreFranquicia(id, nuevoNombre))
                 .thenReturn(Mono.just(franquiciaActualizada));

@@ -1,4 +1,4 @@
-package com.accenture.franquicias.application.mappers;
+package com.accenture.franquicias.infrastructure.adapters.web.mappers;
 
 import com.accenture.franquicias.domain.models.Producto;
 import com.accenture.franquicias.infrastructure.adapters.web.dto.ProductoCreateDTO;
@@ -12,11 +12,9 @@ public interface ProductoMapper {
     ProductoDTO toDTO(Producto producto);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "new", ignore = true)
     @Mapping(target = "sucursalId", ignore = true)
     Producto toEntity(ProductoCreateDTO dto);
 
-    @Mapping(target = "new", ignore = true)
     Producto toEntity(ProductoDTO dto);
 
     ProductoMasStockDTO toProductoMasStockDTO(Producto producto);

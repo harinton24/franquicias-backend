@@ -1,4 +1,4 @@
-package com.accenture.franquicias.application.mappers;
+package com.accenture.franquicias.infrastructure.adapters.web.mappers;
 
 import com.accenture.franquicias.domain.models.Franquicia;
 import com.accenture.franquicias.infrastructure.adapters.web.dto.FranquiciaCreateDTO;
@@ -12,10 +12,8 @@ public interface FranquiciaMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "sucursales", ignore = true)
-    @Mapping(target = "new", ignore = true)
     Franquicia toEntity(FranquiciaCreateDTO dto);
 
     @Mapping(target = "sucursales", ignore = true)
-    @Mapping(target = "new", ignore = true)
     Franquicia toEntity(FranquiciaDTO dto);
 }
