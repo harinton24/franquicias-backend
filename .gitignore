@@ -34,3 +34,7 @@ build/
 
 ### ENV ###
 .env
+
+# Terraform ##
+terraform/.terraform/
+terraform/.terraform.lock.hcl
