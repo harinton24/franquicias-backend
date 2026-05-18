@@ -77,7 +77,6 @@ src/
 ├── main/
 │   ├── java/com/accenture/franquicias/
 │   │   ├── application/
-│   │   │   ├── mappers/
 │   │   │   └── usecases/
 │   │   ├── domain/
 │   │   │   ├── models/
@@ -92,7 +91,8 @@ src/
 │   │       │   └── web/
 │   │       │       ├── controllers/
 │   │       │       ├── dto/
-│   │       │       └── exceptions/
+│   │   │   │       ├── exceptions/
+│   │       │       └── mappers/
 │   │       └── config/
 │   └── resources/
 │       └── db/migration/
