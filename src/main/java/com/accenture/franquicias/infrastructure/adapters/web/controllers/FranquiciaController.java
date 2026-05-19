@@ -78,4 +78,20 @@ public class FranquiciaController {
         return useCase.renombrarFranquicia(id, dto.getNombre())
                 .map(franquiciaMapper::toDTO);
     }
+
+    @PatchMapping("/sucursales/{id}/nombre")
+    public Mono<SucursalDTO> actualizarNombreSucursal(
+            @PathVariable UUID id,
+            @Valid @RequestBody SucursalUpdateDTO dto) {
+        return useCase.renombrarSucursal(id, dto.getNombre())
+                .map(sucursalMapper::toDTO);
+    }
+
+    @PatchMapping("/productos/{id}/nombre")
+    public Mono<ProductoDTO> actualizarNombreProducto(
+            @PathVariable UUID id,
+            @Valid @RequestBody ProductoUpdateDto dto) {
+        return useCase.renombrarProducto(id, dto.getNombre())
+                .map(productoMapper::toDTO);
+    }
 }
